@@ -14,7 +14,7 @@ export class ShortUrlService {
   getShortUrl(nombreUrl: string): Observable<any> {
 
     const tokenHeaders = new HttpHeaders({
-      Authorization: 'Bearer: ' + this.token
+      Authorization: 'Bearer ' + this.token
     })
     const body = {
       long_url: nombreUrl
