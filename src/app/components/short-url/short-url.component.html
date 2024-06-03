@@ -1,3 +1,7 @@
+<div class="alert alert-dismissible alert-danger" *ngIf="mostrarError">
+  <strong>{{ mensajeError | uppercase }}</strong>
+</div>
+
 <div class="container mt-3">
   <h1 class="display-5 text-center">Ingrese la URL a cortar</h1>
   <div class="row mt-5">
@@ -23,5 +27,8 @@
         placeholder="URL procesada"
       />
     </div>
+  </div>
+  <div class="row justify-content-center">
+    <app-spinner *ngIf="loading"></app-spinner>
   </div>
 </div>

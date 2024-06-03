@@ -11,6 +11,9 @@ export class ShortUrlComponent implements OnInit {
   nombreUrl = '';
   shortUrl = '';
   urlProcesada = false;
+  loading = false;
+  mostrarError = false;
+  mensajeError = '';
 
   constructor(private _shortUrlService: ShortUrlService) { }
 
@@ -19,11 +22,40 @@ export class ShortUrlComponent implements OnInit {
 
   procesarUrl() {
 
+    if (this.nombreUrl === '') {
+      this.mensajeError = 'Ingrese la Url a Procesar';
+      this.mostrarError = true;
+      setTimeout(() => {
+        this.mostrarError = false;
+        this.nombreUrl = '';
+      }, 4000);
+      return
+    }
+
+
+    this.urlProcesada = false;
+    this.loading = true;
+
+    setTimeout(() => {
+      this.obtenerUrlShort();
+    }, 2000);
+  }
+
+  obtenerUrlShort() {
     this._shortUrlService.getShortUrl(this.nombreUrl).subscribe(data => {
       this.shortUrl = data.link;
       this.urlProcesada = true;
+      this.loading = false;
     }, error => {
       console.error(error);
+
+      this.mostrarError = true;
+      this.mensajeError = error.error.description;
+      this.loading = false;
+      setTimeout(() => {
+        this.mostrarError = false;
+        this.nombreUrl = '';
+      }, 4000);
     })
   }
 
