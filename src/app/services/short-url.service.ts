@@ -12,18 +12,11 @@ export class ShortUrlService {
   constructor(private http: HttpClient) { }
 
   getShortUrl(nombreUrl: string): Observable<any> {
-
-    const tokenHeaders = new HttpHeaders({
-      Authorization: 'Bearer ' + this.token
-    })
     const body = {
       long_url: nombreUrl
     }
 
-    return this.http.post(this.url, body,
-      {
-        headers: tokenHeaders
-      })
+    return this.http.post(this.url, body);
   }
 
 }
